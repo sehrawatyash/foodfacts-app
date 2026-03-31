@@ -1,0 +1,88 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f6f8fb;
+  color: #1f2937;
+  line-height: 1.5;
+}
+
+#root {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #166534;
+}
+
+form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+input,
+button {
+  font-size: 1rem;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+
+input {
+  flex: 1;
+  background: #fff;
+}
+
+button {
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #15803d;
+}
+
+.food-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.food-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.food-card h3 {
+  margin-bottom: 8px;
+}
+
+.food-card p {
+  margin-bottom: 6px;
+}
+
+.food-image {
+  width: 100%;
+  height: 140px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.nutrition-info {
+  margin-top: 10px;
+}
