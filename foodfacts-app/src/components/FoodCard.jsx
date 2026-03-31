@@ -1,54 +1,51 @@
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import CardActionArea from '@mui/material/CardActionArea'
+import Typography from '@mui/material/Typography'
+import Chip from '@mui/material/Chip'
 import { useNavigate } from 'react-router-dom'
 
 function FoodCard({ product }) {
   const navigate = useNavigate()
-  const { product_name, brands, nutriments = {}, image_small_url, code } = product
+  const productId = product.id ?? product.code
 
   const handleClick = () => {
-    if (code) {
-      navigate(`/product/${code}`)
+    if (productId) {
+      navigate(`/product/${productId}`, { state: { product } })
     }
   }
 
-  const calories = nutriments['energy-kcal_100g'] ?? 'N/A'
-  const protein = nutriments.proteins_100g ?? 'N/A'
-  const carbs = nutriments.carbohydrates_100g ?? 'N/A'
-  const fat = nutriments.fat_100g ?? 'N/A'
-
   return (
-    <div
-      className="food-card"
-      onClick={handleClick}
-      style={{ cursor: code ? 'pointer' : 'default' }}
-    >
-      {image_small_url && (
-        <img
-          src={image_small_url}
-          alt={product_name || 'Food product'}
-          className="food-image"
-        />
-      )}
-
-      <h3>{product_name || 'Unnamed product'}</h3>
-      <p>
-        <strong>Brand:</strong> {brands || 'Unknown'}
-      </p>
-
-      <div className="nutrition-info">
-        <p>
-          <strong>Calories:</strong> {calories} kcal
-        </p>
-        <p>
-          <strong>Protein:</strong> {protein} g
-        </p>
-        <p>
-          <strong>Carbs:</strong> {carbs} g
-        </p>
-        <p>
-          <strong>Fat:</strong> {fat} g
-        </p>
-      </div>
-    </div>
+    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <CardActionArea onClick={handleClick} sx={{ flexGrow: 1 }}>
+        {product.image_small_url && (
+          <CardMedia
+            component="img"
+            height="140"
+            image={product.image_small_url}
+            alt={product.product_name || 'Food product'}
+            sx={{ objectFit: 'contain', p: 1 }}
+          />
+        )}
+        <CardContent>
+          <Typography variant="h6" gutterBottom>
+            {product.product_name || 'Unknown Product'}
+          </Typography>
+          <Typography variant="body2" color="text.secondary" gutterBottom>
+            {product.brands || 'Unknown Brand'}
+          </Typography>
+          {product.nutriments?.['energy-kcal_100g'] && (
+            <Chip
+              label={`${Math.round(product.nutriments['energy-kcal_100g'])} kcal / 100g`}
+              size="small"
+              color="primary"
+              variant="outlined"
+            />
+          )}
+        </CardContent>
+      </CardActionArea>
+    </Card>
   )
 }
 
