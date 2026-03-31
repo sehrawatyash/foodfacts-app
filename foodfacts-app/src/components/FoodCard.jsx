@@ -1,5 +1,14 @@
+import { useNavigate } from 'react-router-dom'
+
 function FoodCard({ product }) {
-  const { product_name, brands, nutriments = {}, image_small_url } = product
+  const navigate = useNavigate()
+  const { product_name, brands, nutriments = {}, image_small_url, code } = product
+
+  const handleClick = () => {
+    if (code) {
+      navigate(`/product/${code}`)
+    }
+  }
 
   const calories = nutriments['energy-kcal_100g'] ?? 'N/A'
   const protein = nutriments.proteins_100g ?? 'N/A'
@@ -7,7 +16,11 @@ function FoodCard({ product }) {
   const fat = nutriments.fat_100g ?? 'N/A'
 
   return (
-    <div className="food-card">
+    <div
+      className="food-card"
+      onClick={handleClick}
+      style={{ cursor: code ? 'pointer' : 'default' }}
+    >
       {image_small_url && (
         <img
           src={image_small_url}
